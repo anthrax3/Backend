@@ -79,7 +79,7 @@ namespace backend_api.Repository
                     throw new HttpResponseException(System.Net.HttpStatusCode.InternalServerError);
                 }
             }
-            return clientListReturn;
+            return (clientListReturn.Count != 0) ? clientListReturn : null;
         }
 
         /// <summary>
@@ -122,6 +122,8 @@ namespace backend_api.Repository
                     for (int i = 0; i < clientResults.Count(); i++){
                         clientList.Add(clientResults.ElementAt(i));
                     }
+
+                   
                 }
                 catch (Exception e)
                 {
@@ -129,7 +131,7 @@ namespace backend_api.Repository
                     throw new HttpResponseException(System.Net.HttpStatusCode.InternalServerError);
                 }
             }
-            return clientList;
+            return (clientList.Count != 0) ? clientList : null;
         }
 
         /// <summary>

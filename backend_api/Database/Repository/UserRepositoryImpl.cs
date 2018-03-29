@@ -48,7 +48,8 @@ namespace backend_api.Repository
                     throw new HttpResponseException(System.Net.HttpStatusCode.InternalServerError);
                 }
             }
-            return userListReturn;
+
+            return (userListReturn.Count != 0) ? userListReturn : null;
         }
 
         /// <summary>
