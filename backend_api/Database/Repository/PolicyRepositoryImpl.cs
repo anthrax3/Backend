@@ -28,7 +28,7 @@ namespace backend_api.Repository
         /// <returns>Returns a list of policies or null if no record find</returns>
         public List<Policy> getPolicyByClientName(string name)
         {
-            List<Policy> policyList = null;
+            List<Policy> policyList = new List<Policy>();
             Client clientResult = null;
 
             using (var conn = SqlLiteConnection(dbPath))
@@ -41,7 +41,6 @@ namespace backend_api.Repository
                         clientResult = client.First();
                         var policyQuery = from s in conn.Table<Policy>() where s.clientId.Equals(clientResult.id) select s;
 
-                        policyList = new List<Policy>();
                         for (int i = 0; i < policyQuery.Count(); i++)
                         {
                             policyList.Add(policyQuery.ElementAt(i));
@@ -54,7 +53,8 @@ namespace backend_api.Repository
                     throw new HttpResponseException(System.Net.HttpStatusCode.InternalServerError);
                 }
             }
-            return policyList;
+
+            return (policyList.Count != 0) ? policyList : null;
         }
     }
 }
